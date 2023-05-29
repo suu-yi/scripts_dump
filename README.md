@@ -1,1 +1,1 @@
-# scripts_dump
+Random collection of random scripts
