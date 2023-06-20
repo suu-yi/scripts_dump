@@ -1,6 +1,9 @@
 #!/bin/bash/
 
-##### Step 1: Clean sequences with kraken2 results 
+##### Step 1: Quality check
+
+
+##### Step 2: Clean sequences with kraken2 results 
 
 # kraken single-end reads
 for f in ../raw_data/*fastq.gz;
@@ -17,7 +20,7 @@ echo "Finished run for ${base_nm} at $(date)";
 done
 
 
-##### Remove sequences classified as homo sapiens
+##### Step 3:  Remove sequences classified as homo sapiens
 
 # extract seq id from kraken files into list
 for file in /kraken_results/*.kraken;
@@ -31,7 +34,7 @@ echo "${bs_name} ...done at $(date)";
 done
 
 
-##### Step 2: Second clean with Bowtie2 results
+##### Step 4: Second clean with Bowtie2 results
 
 # bowtie2 single-end reads
 for f in /kraken_clean/*file_R1_.fastq.gz;
@@ -44,7 +47,7 @@ echo "${bs_name} ...done at $(date)";
 done
 
 
-##### Clean sequences using SAMtools with bowtie2 results 
+##### Step 5: Clean sequences using SAMtools with bowtie2 results 
 
 # single-end reads
 for f in /bowtie2/cleaned*;
@@ -59,7 +62,7 @@ samtools fastq -f 0x4 \
 echo " ${bs_name} ...done at $(date)";
 done
 
-##### Step 3: Second kraken2 report
+##### Step 6: Second kraken2 report
 
 # kraken single-end reads
 for f in /cleaned/*fastq.gz;
@@ -75,5 +78,5 @@ kraken2 --use-names \
 echo "Finished run for ${base_nm} at $(date)";
 done
 
-# Step 4: Bracken species
+# Step 7: Bracken species OR Krona plots?
 
